@@ -1,0 +1,79 @@
+
+        <html lang='en-US'>
+        <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta property="og:type" content="website">
+        <link rel="shortcut icon" href="">
+        <link rel="apple-touch-icon" href="">
+        
+
+        <title>Home</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <style>
+        [node_id="1:236"] {  }
+[node_id="1:237"] {  }
+
+        </style>
+        <style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Inter&display=swap');
+</style>
+        </head><body>
+        <div class="pt-15 pb-15 pl-23 pr-23 ai-c jc-c g-10 bg-0-0-70 br-4 of-h fd-r" node_id="1:236" >
+<p class="fs-16 ff-inter fw-700 c-255-255-255" node_id="1:237" >
+Support now</p>
+</div>
+
+        
+
+        <script>
+      const actions = [];
+
+    document.querySelectorAll('[trigger="ON_HOVER"]').forEach((node) => {
+        node.style.transition = 'all 0.2s';
+        const baseId = node.getAttribute('node_id');
+        const action = actions.find(({ name }) => name === node.getAttribute('mouseover'));
+        node.addEventListener('mouseenter', () => {
+          action.changes.forEach((change) => {
+            if (change.nodeId === null) {
+              node.style[change.property] = change.value;
+            } else {
+              const nodeSelector = '[node_id="I' + baseId + ';' + change.nodeId + '"]';
+              node.querySelector(nodeSelector).style[change.property] = change.value;
+            }
+          });
+        });
+        node.addEventListener('mouseleave', () => {
+          action.changes.forEach((change) => {
+            if (change.nodeId === null) {
+              node.style[change.property] = change.init;
+            } else {
+              const nodeSelector = '[node_id="I' + baseId + ';' + change.nodeId + '"]';
+              node.querySelector(nodeSelector).style[change.property] = change.init;
+            }
+          });
+        });
+      });
+    
+
+      document.querySelectorAll('[on_hover]').forEach((node) => {
+        let actions = node?.getAttribute('on_hover').split(';-;');
+        let reactions = [];
+        actions.map((action) => {
+          reactions.push({
+            variable: action.split('->')[0],
+            value: action.split('->')[1],
+          });
+          node.addEventListener('mouseenter', () => {
+            node.style.setProperty('--' + action.split('->')[0], action.split('->')[1]);
+            node.style.setProperty('transition', 'all 0.2s');
+          });
+          node.addEventListener('mouseleave', () => {
+            node.style.removeProperty('--' + action.split('->')[0]);
+          });
+        });
+      });
+      </script>
+        
+        </body>
+        </html>
